@@ -18,12 +18,16 @@ fn main() {
     dotenv().ok();
 
     // 从环境变量读取数据库 URL
-    let database_url = env::var("DATABASE_URL").expect("DATABASE_URL not found");
+    let database_url = env::var("DATABASE_URL").unwrap_or_else(|_| {
+        eprintln!("DATABASE_URL not found");
+        std::process::exit(1);
+    });
     
     // 创建数据库连接池
     let database_pool = Pool::builder()
         .build(ConnectionManager::new(database_url))
         .expect("Failed to create pool.");
+    
 
     // 获取一个数据库连接
     let mut db_connection = database_pool.get().expect("Failed to get a connection from the pool.");
