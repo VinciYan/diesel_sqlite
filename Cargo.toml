@@ -1,0 +1,9 @@
+[package]
+name = "diesel_sqlite"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+diesel = { version = "2.1.6", features = ["sqlite", "r2d2"] }
+dotenv = "0.15.0"
+rusqlite = { version = "0.31.0", features = ["bundled"] }
